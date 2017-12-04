@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Theme Made By www.w3schools.com - No Copyright -->
+  <title>Bootstrap Theme Company Page</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="CSS/estilo.css">
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.8/vue.min.js"></script>
+
+</head>
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+
+<nav class="navbar navbar-default navbar-fixed-top">
+
+
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#myPage">Logo</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="index.html" target="_blank">WEB</a></li>
+    <li class="dropdown">
+      <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span> MI CUENTA <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="#" style=" background-color: black;"><span class="glyphicon glyphicon-lock"></span> CERRAR SESIÓN</a></li>
+      
+        </ul>
+      </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+
+
+
+
+<!-- Container (About Section) -->
+<div id="about" class="container-fluid">
+  <div class="row">
+<h1>A</h1>
+<!-- FORMULARIO DE INSERT -->
+<div class="col-sm-3" id="app">
+<form class="form-horizontal" action="" @submit.prevent="enviarMensaje">
+    
+    <div class="form-group">
+      <label class="control-label col-sm-2">Codigo:</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" placeholder="Codigo del Libro" v-model="Icodigo">
+      </div>
+    </div>
+    <div class="form-group">
+    <label class="control-label col-sm-2">Titulo:</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" placeholder="Titulo del Libro" v-model="Ititulo">
+      </div>
+    </div>
+    <div class="form-group">
+    <label class="control-label col-sm-2">Autor:</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" placeholder="Autor del Libro" v-model="Iautor">
+      </div>
+    </div>
+    <div class="form-group">
+    <label class="control-label col-sm-2">Id coleccion:</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" placeholder="llave foranea para base relacional" v-model="Iidcoleccion">
+      </div>
+    </div>
+    <div class="form-group">
+    <label class="control-label col-sm-2">ISBN:</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" placeholder="05640384135" v-model="Iisbn">
+      </div>
+    </div>
+    <div class="form-group">
+    <label class="control-label col-sm-2">Costo:</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" placeholder="Costo del libro" v-model="Icosto">
+      </div>
+    </div>
+    <div class="form-group">
+    <label class="control-label col-sm-2">Existencia:</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" placeholder="Entrada de inventario" v-model="Iexistencia">
+      </div>
+    </div>
+    
+    <div class="form-group">        
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-success">Agregar</button>
+      </div>
+    </div>
+  </form>
+    <pre>{{$data}}</pre>
+    </div>
+  
+<div class="col-sm-9">
+  <input type="text" class="form-control" placeholder="Buscar" id="entradafilter" 
+  style="background-color: #311D39; color: white;">
+
+  </div>
+
+   
+
+<!-- DIV DE INSTANCIA 2 DE VUE ++++++++++++++++++++++++++++++++++++++++++++++-->
+
+ <div class="col-sm-9" id="app2" style=" height: 600px; overflow-y: scroll;">
+      
+  
+    
+    <br><br>
+  
+
+
+<!-- AQUI EMPIEZA MI TABLA Y RENDERIZA LA INFORMACIÓN DE FIREBASE-->
+      <table class="table table-hover">
+    <thead>
+      <tr  class="info">
+        <th>Codigo</th>
+        <th>Titulo</th>
+        <th>Autor</th>
+        <th>Isbn</th>
+        <th>Costo</th>
+        <th>Accion</th>
+      </tr>
+    </thead>
+    <tbody v-for="mensaje in mensajes" class="contenidobusqueda">
+      <tr>
+      	<td contenteditable="true" @blur="editarCodigo($event, mensaje.key)">{{mensaje.Vcodigo}}</td>
+        <td contenteditable="true" @blur="editarTitulo($event, mensaje.key)">{{mensaje.Vtitulo}}</td>
+        <td contenteditable="true" @blur="editarAutor($event, mensaje.key)">{{mensaje.Vautor}}</td>
+        <td contenteditable="true" @blur="editarIsbn($event, mensaje.key)">{{mensaje.Visbn}}</td>
+        <td contenteditable="true" @blur="editarCosto($event, mensaje.key)">{{mensaje.Vcosto}}</td>
+        <td><button @click="eliminarMensaje(mensaje.key)" class="btn btn-danger"><span  class="glyphicon glyphicon-trash"></span></button></td>
+      </tr>
+      
+    </tbody>
+  </table>
+    <!-- <pre>{{$data}}</pre>-->
+     
+    </div>
+
+
+
+  </div>
+</div>
+
+
+<!-- 
+<div class="container-fluid bg-grey">
+  <div class="row">
+    <div class="col-sm-4">
+     
+    </div>
+    <div class="col-sm-8">
+      <h2>NUESTROS VALORES</h2><br>
+      <h4><strong>MISSION:</strong> Our mission lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</h4><br>
+    </div>
+  </div>
+</div> -->
+
+
+
+
+<footer class="container-fluid text-center">
+  <a href="#myPage" title="To Top">
+    <span class="glyphicon glyphicon-chevron-up"></span>
+  </a>
+  <p>Mi empresa Copyright 2017</p>
+</footer>
+
+
+
+<!-- AQUI EMPIEZA SCERIPT DE VUE AND FIREBASE-->
+<script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBJDpf99Z0vZwWNOyuxXvxXp78VCw_R8uU",
+    authDomain: "api-nss.firebaseapp.com",
+    databaseURL: "https://api-nss.firebaseio.com",
+    projectId: "api-nss",
+    storageBucket: "api-nss.appspot.com",
+    messagingSenderId: "675426234514"
+  };
+  firebase.initializeApp(config);
+  const db = firebase.database();
+
+
+// ++++++++++++++++++++++++++ INSTANCIA 1 ++++++++++++++++++++++++++++++++++++++++++++++
+const vm =	 new Vue({
+		  	el: '#app',
+		  	data: {
+		  		Icodigo: 0,
+  		 		Ititulo: null,
+  		 		Iautor: null,
+  		 		Iidcoleccion: 0,
+  		 		Iisbn: null,
+          Icosto: 0,
+          Iexistencia: 0,
+  		 		     mensajes: [],
+		  	},
+		  	methods: {
+		  		enviarMensaje(){
+		 			db.ref('/base')
+		 			.push({
+		 				codigo: this.Icodigo,
+		 				titulo: this.Ititulo,
+		 				autor: this.Iautor,
+		 				idcoleccion: this.Iidcoleccion,
+		 				isbn: this.Iisbn,
+		 				costo: this.Icosto,
+            existencia: this.Iexistencia,
+		 			})
+		 			.then((data) => {
+		 				//Aqui borro lo que tiene el formulario y envio a consola el key de firebase
+		 				this.Icodigo = '';
+		 				this.Ititulo = '';
+		 				this.Iautor = '';
+		 				this.Iidcoleccion = '';
+		 				this.Iisbn = '';
+            this.Icosto = '';
+            this.Iexistencia = '';
+
+		 				console.log(data.key);
+		 			});
+
+		 		}
+		  	}
+	
+		  });
+
+// ++++++++++++++++++++++++++ INSTANCIA 2 ++++++++++++++++++++++++++++++++++++++++++++++
+const vm2 = new Vue({
+	el: '#app2',
+	created(){
+		  		db.ref('/base')
+		  			.on('value', snapshot => this.cargarMensajes(snapshot.val()))
+		  	},
+	data: {
+		mensajes: [],
+	},
+	methods: {
+		cargarMensajes(mensajes){
+		 			this.mensajes = [];
+		 				for (let key in mensajes){
+		 					
+		 					this.mensajes.push({
+		 						Vcodigo: mensajes[key].codigo,
+		 						Vtitulo: mensajes[key].titulo,
+		 						Vautor: mensajes[key].autor,
+		 						Visbn: mensajes[key].isbn,
+		 						Vcosto: mensajes[key].costo,
+		 						key: key,
+		 					});
+		 				}
+		 		},
+		 		editarCodigo(mensaje, key){
+		 			db.ref('/base/' + key).update({
+		 				codigo: mensaje.target.innerHTML,
+		 			});
+		 		},
+		 		editarTitulo(mensaje, key){
+		 			db.ref('/base/' + key).update({
+		 				titulo: mensaje.target.innerHTML,
+		 			});
+		 		},
+		 		editarAutor(mensaje, key){
+		 			db.ref('/base/' + key).update({
+		 				autor: mensaje.target.innerHTML,
+		 			});
+		 		},
+		 		editarIsbn(mensaje, key){
+		 			db.ref('/base/' + key).update({
+		 				isbn: mensaje.target.innerHTML,
+		 			});
+		 		},
+		 		editarCosto(mensaje, key){
+		 			db.ref('/base/' + key).update({
+		 				costo: mensaje.target.innerHTML,
+		 			});
+		 		},
+		 		eliminar(key){
+		 			if(confirm('seguro?'))
+		 				db.ref('/base/' + key).remove();
+		 		}
+	}
+});
+
+
+
+
+//buscar registro por palabra clave
+ $(document).ready(function () {
+   $('#entradafilter').keyup(function () {
+      var rex = new RegExp($(this).val(), 'i');
+        $('.contenidobusqueda tr').hide();
+        $('.contenidobusqueda tr').filter(function () {
+            return rex.test($(this).text());
+        }).show();
+
+        })
+
+});
+
+</script>
+
+
+<script type="text/javascript" src="JS/default.js"></script>
+<!-- esto funciona para usar la consola de vue-->
+<script src="https://unpkg.com/vue@2.5.8/dist/vue.js"></script>
+
+</body>
+</html>
