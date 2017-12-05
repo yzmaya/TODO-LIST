@@ -18,7 +18,7 @@ body {
       margin-bottom: 30px;
   }  
   .jumbotron {
-      background-color: #f4511e;
+      background-color: #94C7B6;
       color: #fff;
       padding: 100px 25px;
       font-family: Montserrat, sans-serif;
@@ -34,7 +34,7 @@ body {
       font-size: 50px;
   }
   .logo {
-      color: #AB7345;
+      color: #D3643B;
       font-size: 200px;
   }
   .thumbnail {
@@ -107,7 +107,7 @@ body {
   }
   .navbar {
       margin-bottom: 0;
-      background-color: #762213;
+      background-color: #403B33;
       z-index: 9999;
       border: 0;
       font-size: 12px !important;
